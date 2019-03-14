@@ -8,16 +8,13 @@
  * Author URI: http://www.syscoin.com.br
  */
 
-add_action( 'woocommerce_order_status_completed', 'custom_woocommerce_order_status_completed' );
+add_action( 'woocommerce_thankyou', 'custom_woocommerce_order_status_completed' );
 
 function custom_woocommerce_order_status_completed( $order_id ) {
-    $order = new WC_Order($order_id);
+    $url = "http://us-central1-syscoin-dashboard-app.cloudfunctions.net/woocommerceNewOrderNotification?id=".$order_id;
+    $http_request = file( $url );
 
-    $items = $order->get_items();
-
-    foreach ($items as $key => $value) {
-        if($value == 10) { // given product id
-            // trigger order complete email for specific email address
-        }
+    if( WP_DEBUG ){
+        echo "<script> alert('".$order_id."'); </script>"; 
     }
 }
