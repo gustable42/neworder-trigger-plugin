@@ -12,6 +12,8 @@ add_action( 'woocommerce_thankyou', 'custom_woocommerce_order_status_completed' 
 
 function custom_woocommerce_order_status_completed( $order_id ) {
     $url = "http://us-central1-syscoin-dashboard-app.cloudfunctions.net/woocommerceNewOrderNotification?id=".$order_id;
+    $store_url = get_site_url();
+    $url .= "&url=".$store_url;
     $http_request = file( $url );
 
     if( WP_DEBUG ){
